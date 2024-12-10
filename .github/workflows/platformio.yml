@@ -33,3 +33,11 @@ jobs:
 
       - name: Build PlatformIO Project
         run: pio run
+
+      - name: Upload artifact
+        if: ${{ matrix.os == 'ubuntu-latest' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware
+          path: .pio/build/esp32doit-devkit-v1/firmware.bin
+
