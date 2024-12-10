@@ -43,7 +43,7 @@ jobs:
           path: .pio/build/esp32doit-devkit-v1/firmware.bin
 
       - name: Find artifact upload comment
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+        if: ${{ matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request' }}
         uses: peter-evans/find-comment@v3
         id: find-upload-comment
         with:
@@ -52,7 +52,7 @@ jobs:
           body-includes: compiled firmware
 
       - name: Post link to artifact
-        if: ${{ matrix.os == 'ubuntu-latest' }}
+        if: ${{ matrix.os == 'ubuntu-latest' && github.event_name == 'pull_request' }}
         uses: peter-evans/create-or-update-comment@v4
         with:
           issue-number: ${{ github.event.pull_request.number }}
